@@ -47,6 +47,8 @@ gender_distribution = customers_df['Gender'].value_counts()
 location_distribution = customers_df['Location'].value_counts()
 # Оцінка лояльності
 loyalty_score_summary = customers_df['LoyaltyScore'].describe()
+# Дата реєстрації
+registration_date_summary = customers_df['RegistrationDate'].describe()
 
 print("\nCustomer Age Summary:")
 print(age_summary)
@@ -56,6 +58,8 @@ print("\nCustomer Location Distribution:")
 print(location_distribution)
 print("\nCustomer Loyalty Score Summary:")
 print(loyalty_score_summary)
+print("\nCustomer Registration Date Summary:")
+print(registration_date_summary)
 
 # Продажі
 # Кількість продажів
@@ -64,6 +68,10 @@ quantity_summary = sales_df['Quantity'].describe()
 total_amount_summary = sales_df['TotalAmount'].describe()
 # Частота продажів за датами
 sales_by_date = sales_df['SaleDate'].value_counts()
+# Сума продажу за продуктом
+sales_by_product = sales_df.groupby('ProductID')['TotalAmount'].sum()
+# Сума продажу за продавцем
+sales_by_seller = sales_df.groupby('SellerID')['TotalAmount'].sum()
 
 print("\nSales Quantity Summary:")
 print(quantity_summary)
@@ -71,17 +79,25 @@ print("\nTotal Sales Amount Summary:")
 print(total_amount_summary)
 print("\nSales by Date:")
 print(sales_by_date)
+print("\nSales by Product:")
+print(sales_by_product)
+print("\nSales by Seller:")
+print(sales_by_seller)
 
 # Товари
 # Категорії товарів
 category_distribution = products_df['Category'].value_counts()
 # Ціна товарів
 price_summary = products_df['Price'].describe()
+# Кількість продуктів у кожній категорії
+product_count_by_category = products_df['Category'].value_counts()
 
 print("\nProduct Category Distribution:")
 print(category_distribution)
 print("\nProduct Price Summary:")
 print(price_summary)
+print("\nProduct Count by Category:")
+print(product_count_by_category)
 
 # Продавці
 # Кількість продажів для кожного продавця
@@ -102,11 +118,15 @@ aggregated_data = {
     'Customer Gender Distribution': gender_distribution,
     'Customer Location Distribution': location_distribution,
     'Customer Loyalty Score Summary': loyalty_score_summary,
+    'Customer Registration Date Summary': registration_date_summary,
     'Sales Quantity Summary': quantity_summary,
     'Total Sales Amount Summary': total_amount_summary,
     'Sales by Date': sales_by_date,
+    'Sales by Product': sales_by_product,
+    'Sales by Seller': sales_by_seller,
     'Product Category Distribution': category_distribution,
-    'Product Price Summary': price_summary
+    'Product Price Summary': price_summary,
+    'Product Count by Category': product_count_by_category
 }
 
 # Збереження у CSV файли
